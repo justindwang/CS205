@@ -10,9 +10,9 @@
 using namespace std;
 
 // Manual definitions for file and the row and column sizes in file
-#define FILENAME "CS205_SP_2022_SMALLtestdata__33"
-#define ROWS 300
-#define COLS 11
+#define FILENAME "CS205_SP_2022_Largetestdata__13.txt"
+#define ROWS 1000
+#define COLS 41
 
 // Function used in std::transform() for calculating Euclidean distance
 double diff_square(double a, double b){
@@ -20,10 +20,10 @@ double diff_square(double a, double b){
 }
 
 // Cross validation function for calculating the accuracy when including a set a features
-double cross_validation(const vector<vector<double>> &data, const vector<int> &include_cols){
+double cross_validation(const vector<vector<double> > &data, const vector<int> &include_cols){
 
     // Makes the column of unconsidered features 0
-    vector<vector<double>> temp(ROWS,vector<double>(COLS,0));
+    vector<vector<double> > temp(ROWS,vector<double>(COLS,0));
     for (int row = 0; row < ROWS; row++){
         for(int col : include_cols){
             temp[row][col] = data[row][col]; 
@@ -63,7 +63,7 @@ double cross_validation(const vector<vector<double>> &data, const vector<int> &i
 }
 
 // Forward selection search that outputs the trace, final accuracy, and final set of features
-void search_feature_forward(const vector<vector<double>> &data){
+void search_feature_forward(const vector<vector<double> > &data){
     vector<int> features;
     double final_accuracy = 0.0;
     vector<int> final_set;
@@ -101,7 +101,7 @@ void search_feature_forward(const vector<vector<double>> &data){
 }
 
 // Backward elimination search that outputs the trace, final accuracy, and final set of features
-void search_feature_backward(const vector<vector<double>> &data){
+void search_feature_backward(const vector<vector<double> > &data){
     vector<int> features(COLS-1);
     iota(features.begin(), features.end(),1);
     double final_accuracy = 0.0;
@@ -140,7 +140,7 @@ void search_feature_backward(const vector<vector<double>> &data){
 }
 
 // Helper function for determining the counts of labels in data
-void printlabels( vector<vector<double>> &data){
+void printlabels( vector<vector<double> > &data){
     int num1 = 0;
     int num2 = 0;
     for ( vector<double> &v : data){
@@ -159,7 +159,7 @@ void printlabels( vector<vector<double>> &data){
 int main(){
     auto begin = chrono::high_resolution_clock::now();
     fstream file;
-    vector<vector<double>> data(ROWS,vector<double>(COLS));
+    vector<vector<double> > data(ROWS,vector<double>(COLS));
 
     // Reads in file
     file.open(FILENAME,ios::in);
@@ -177,8 +177,8 @@ int main(){
     file.close();
 
     // performs either forward selection or backward elimination
-    search_feature_forward(data);
-    //search_feature_backward(data);
+    //search_feature_forward(data);
+    search_feature_backward(data);
 
     // calculates and prints cpu runtime
     auto end = std::chrono::high_resolution_clock::now();
