@@ -10,9 +10,9 @@
 using namespace std;
 
 // Manual definitions for file and the row and column sizes in file
-#define FILENAME "CS205_SP_2022_Largetestdata__13.txt"
-#define ROWS 1000
-#define COLS 41
+#define FILENAME "cleaned_league_data.txt"
+#define ROWS 9879
+#define COLS 40
 
 // Function used in std::transform() for calculating Euclidean distance
 double diff_square(double a, double b){
@@ -177,8 +177,8 @@ int main(){
     file.close();
 
     // performs either forward selection or backward elimination
-    //search_feature_forward(data);
-    search_feature_backward(data);
+    search_feature_forward(data);
+    //search_feature_backward(data);
 
     // calculates and prints cpu runtime
     auto end = std::chrono::high_resolution_clock::now();
